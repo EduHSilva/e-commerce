@@ -1,0 +1,62 @@
+services:
+  user-service-db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: user_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpass
+    ports:
+      - "3307:3306"
+    
+  payment-service-db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: payment_db
+      MYSQL_USER: payment
+      MYSQL_PASSWORD: paymentpass
+    ports:
+      - "3308:3306"
+
+  product-catalog-service:
+    build:
+      context: ./services/product-catalog-service
+    ports:
+      - "3000:3000"
+
+  shopping-cart-service:
+    build:
+      context: ./services/shopping-cart-service
+    ports:
+      - "8081:8080"
+
+  order-service:
+    build:
+      context: ./services/order-service
+    ports:
+      - "8082:8080"
+
+  payment-service:
+    build:
+      context: ./services/payment-service
+    ports:
+      - "8083:8080"
+
+  notification-service:
+    build:
+      context: ./services/notification-service
+    ports:
+      - "5000:5000"
+
+  user-service:
+    build:
+      context: ./services/user-service
+    ports:
+      - "8085:8080"
+
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "4000:3000"
